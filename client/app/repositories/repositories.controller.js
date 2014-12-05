@@ -4,7 +4,7 @@ angular.module('scmeanApp')
   .controller('RepositoriesCtrl', function ($scope, $http) {
     $scope.repositories = [];
     $http.get('/api/v1/repositories')
-        .success(function(data, status, headers, config) {
+        .success(function(data) {
             // this callback will be called asynchronously
             // when the response is available
             for (var d = 0; d < data.length; ++d) {
@@ -21,10 +21,10 @@ angular.module('scmeanApp')
                 });
             }
         })
-        .error(function(data, status, headers, config) {
+        .error(function(data) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
             console.log('Error retrieving repositories.');
-            console.log(error);
+            console.log(data);
         });
   });
