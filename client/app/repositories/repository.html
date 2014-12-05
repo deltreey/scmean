@@ -1,0 +1,20 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="table table-striped">
+	<thead>
+		<tr class="row">
+			<th><span ng-bind="repository.Name"></span></th>
+			<th><span ng-bind="repository.Owner.Name"></span></th>
+			<th><span ng-bind="repository.Description"></span></th>
+			<th>
+				<select ng-options="branch in repository.Branches" class="form-control"></select>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="row" ng-repeat="commit in repository.commits">
+			<td><span ng-bind="commit.id"></span></td>
+			<td><span ng-bind="commit.message"></span></td>
+		</tr>
+	</tbody>
+</div>
