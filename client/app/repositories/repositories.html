@@ -1,6 +1,6 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
 	<thead>
 		<tr>
 			<th></th>
@@ -11,11 +11,24 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr class="row" ng-repeat="repository in repositories">
+		<tr class="row" ng-repeat="repository in repositories" ng-click="selectedRepository = repository">
 			<td><span ng-bind="repository.Name"></span></td>
 			<td><span ng-bind="repository.Owner.Name"></span></td>
 			<td><span ng-bind="repository.Description"></span></td>
 			<td><a href="{{ repository.Url.Display }}" ng-bind="repository.Url.Clone"></a></td>
 		</tr>
 	</tbody>
+	<tfoot>
+		<tr>
+			<td></td>
+			<td>
+				<button class="btn btn-success" ng-click="createRepoDialog()">New</button>
+			</td>
+			<td></td>
+			<td></td>
+			<td>
+				<button class="btn btn-danger" ng-click="deleteRepo()">Delete</button>
+			</td>
+		</tr>
+	</tfoot>
 </table>

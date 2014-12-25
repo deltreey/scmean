@@ -11,5 +11,8 @@ router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
+router.get('/:id/:branch', controller.showBranch);
+router.post('/:id/git-receive/pack', controller.recievePack);
+router.get('/:id/info/refs', controller.refs);
 
 module.exports = router;

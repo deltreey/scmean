@@ -7,6 +7,62 @@ var _ = require('lodash'),
 var Repository = require('./repository.model');
 var config = require('../../config/environment');
 
+exports.refs = function(req, res) {
+  if (req.param('service') &&
+    req.param('service') === 'git-receive-pack')
+  {
+    res.setHeader('Expires', 'Fri, 01 Jan 1980 00:00:00 GMT');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate');
+    res.setHeader('Content-Type', 'application/x-git-receive-pack-advertisement');
+    var gitDir = config.root + config.git.directory;
+    var repoDir = gitDir + '/' + req.params.id + '.git';
+    var command = 'git-receive-pack --stateless-rpc --advertise-refs ' + repoDir;
+    exec(command, {
+      cwd: repoDir 
+    }, function(error, stdout, stderr) {
+      if (error !== null) {
+        return handleError(res, 'exec error: ' + error);
+      }
+      console.log(stdout);
+      return res.json(200, stdout);
+    });
+  }
+  else {
+    return res.send(404);
+  }
+}
+
+exports.recievePack = function(req, res) {
+  if (req.param('service') &&
+    req.param('service') === 'git-receive-pack')
+  {
+    res.setHeader('Expires', 'Fri, 01 Jan 1980 00:00:00 GMT');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate');
+    res.setHeader('Content-Type', 'application/x-git-receive-pack-result');
+    var gitDir = config.root + config.git.directory;
+    var repoDir = gitDir + '/' + req.params.id + '.git';
+    var command = 'git-receive-pack --stateless-rpc ' + repoDir;
+    exec(command, {
+      cwd: repoDir 
+    }, function(error, stdout, stderr) {
+      if (error !== null) {
+        return handleError(res, 'exec error: ' + error);
+      }
+      console.log(stdout);
+      return res.json(200, stdout);
+    });
+  }
+  else {
+    return res.send(404);
+  }
+}
+
+exports.showBranch = function (req, res) {
+  return res.json(404);
+};
+
 // Get list of repositories
 exports.index = function(req, res) {
   Repository.find(function (err, repositories) {

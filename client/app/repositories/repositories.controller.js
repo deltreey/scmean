@@ -1,8 +1,22 @@
 'use strict';
 
 angular.module('scmeanApp')
-  .controller('RepositoriesCtrl', function ($scope, $http) {
+  .controller('RepositoriesCtrl', function ($scope, $http, Modal) {
     $scope.repositories = [];
+    $scope.selectedRepository = 'None';
+    $scope.createRepoDialog = function() {
+        var createModal = Modal.input.createRepository(function(result) {
+            console.log(result);
+            //$http.post('/api/v1/repositories', { name: '' });
+        });
+        createModal();
+    };
+    $scope.deleteRepo = function() {
+        var deleteModal = Modal.confirm.delete(function () {
+            $http.delete('/api/v1/repositories/' + $scope.selectedRepository);
+        });
+        deleteModal($scope.selectedRepository);
+    };
     $http.get('/api/v1/repositories')
         .success(function(data) {
             // this callback will be called asynchronously
