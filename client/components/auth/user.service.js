@@ -2,7 +2,7 @@
 
 angular.module('scmeanApp')
   .factory('User', function ($resource) {
-    return $resource('/api/users/:id/:controller', {
+    return $resource('/api/v1/users/:id/:controller', {
       id: '@_id'
     },
     {
