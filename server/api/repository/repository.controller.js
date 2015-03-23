@@ -31,7 +31,7 @@ exports.create = function(req, res) {
     if(err) { return handleError(res, err); }
     var repoDir = config.git.directory + '/' + req.body._id + '.git';
     fs.ensureDirSync(repoDir);
-    var command = 'git init --bare';
+    var command = 'git init --bare --share';
     exec(command, {
       cwd: repoDir 
     }, function(error, stdout, stderr) {
