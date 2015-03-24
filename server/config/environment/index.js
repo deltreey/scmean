@@ -43,6 +43,8 @@ var all = {
 
   git: {
     directory: process.env.BASE_GIT_DIR || '/git',
+    uid: 1000,
+    git: 1000
   },
 
   facebook: {
