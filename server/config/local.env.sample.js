@@ -18,6 +18,7 @@ module.exports = {
   GOOGLE_ID:        'app-id',
   GOOGLE_SECRET:    'secret',
 
+  BASE_GIT_DIR: '/home/deltreey/git/',
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
 };

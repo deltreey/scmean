@@ -42,7 +42,7 @@ var all = {
   },
 
   git: {
-    directory: process.env.GIT_DIR || '/git'
+    directory: process.env.BASE_GIT_DIR || '/git',
   },
 
   facebook: {
