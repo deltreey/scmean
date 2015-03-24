@@ -28,7 +28,7 @@ exports.create = function(req, res) {
   console.log(repoDir);
   fs.ensureDirSync(repoDir);
   fs.chownSync(repoDir, config.git.uid, config.git.gid)
-  var command = 'git init --bare --share';
+  var command = 'su -c "git init --bare --share" git';
   exec(command, { cwd: repoDir }, function(error, stdout, stderr) {
     if (error || stderr) {
       return handleError(res, 'exec error: ' + stderr);
