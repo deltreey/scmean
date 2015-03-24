@@ -1,63 +1,52 @@
+/*jshint -W079*/
 'use strict';
 
 var _ = require('lodash'),
+    Promise = require('promise'),
     exec = require('child_process').exec,
-    fs = require('fs-extra');
-//Models
-var Repository = require('./repository.model');
+    fs = require('fs-extra'),
+    path = require('path');
 var config = require('../../config/environment');
+var readDir = Promise.denodeify(fs.readdir);
 
 // Get list of repositories
 exports.index = function(req, res) {
-  Repository.find(function (err, repositories) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, repositories);
-  });
-};
-
-// Get a single repository
-exports.show = function(req, res) {
-  Repository.findById(req.params.id, function (err, repository) {
-    if(err) { return handleError(res, err); }
-    if(!repository) { return res.send(404); }
-    return res.json(repository);
-  });
-};
-
-// Creates a new repository in the DB.
-exports.create = function(req, res) {
-  console.log(req.body);
-  Repository.create(req.body, function(err, repository) {
-    if(err) { return handleError(res, err); }
-    var repoDir = config.git.directory + '/' + req.body._id + '.git';
-    fs.ensureDirSync(repoDir);
-    var command = 'git init --bare --share';
-    exec(command, {
-      cwd: repoDir 
-    }, function(error, stdout, stderr) {
-      if (error !== null) {
-        return handleError(res, 'exec error: ' + error);
+  readDir(config.git.directory)
+    .then(function (files) {
+      var result = [];
+      for (var f = 0; f < files.length; ++f) {
+        result.push({ name: files[f], url: 'git://honeycomb.hive/' + files[f], location: '/git/' + files[f] });
       }
-      console.log(stdout);
-      return res.json(201, stdout);
+
+      return res.json(result);
     });
+};
+
+// Creates a new repository
+exports.create = function(req, res) {
+  var repoDir = path.join(config.git.directory, req.body.name);
+  console.log(repoDir);
+  fs.ensureDirSync(repoDir);
+  fs.chownSync(repoDir, config.git.uid, config.git.gid)
+  var command = 'git init --bare --share';
+  exec(command, { cwd: repoDir }, function(error, stdout, stderr) {
+    if (error || stderr) {
+      return handleError(res, 'exec error: ' + stderr);
+    }
+    console.log(stdout);
+    return res.json(201, stdout);
   });
 };
 
-// Deletes a repository from the DB.
+// Deletes a repository
 exports.destroy = function(req, res) {
-  Repository.findById(req.params.id, function (err, repository) {
-    if(err) { return handleError(res, err); }
-    if(!repository) { return res.send(404); }
-    repository.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      var repoDir = config.git.directory + '/' + req.params.id + '.git';
-      fs.remove(repoDir, function (error) {
-        if (error) { return handleError(res, error); }
-        return res.send(204);
-      });
+  var repoDir = config.git.directory + '/' + req.params.id;
+  if (fs.existsSync(repoDir)) {
+    fs.remove(repoDir, function (error) {
+      if (error) { return handleError(res, error); }
+      return res.send(204);
     });
-  });
+  }
 };
 
 function handleError(res, err) {
