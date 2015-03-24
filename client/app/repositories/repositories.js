@@ -14,5 +14,8 @@ angular.module('scmeanApp')
       	controller: 'RepositoryCtrl',
       	caseInsensitiveMatch: true,
         authenticate: true
+      })
+      .when('/', {
+        redirectTo: '/repositories'
       });
   });

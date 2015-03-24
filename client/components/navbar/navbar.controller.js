@@ -3,9 +3,6 @@
 angular.module('scmeanApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
-    },{
       'title': 'Repositories',
       'link': '/repositories'
     }];
