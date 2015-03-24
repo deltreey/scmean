@@ -6,8 +6,8 @@ angular.module('scmeanApp')
     $scope.selectedRepository = 'None';
     $scope.createRepoDialog = function() {
         var createModal = Modal.input.createRepository(function(result) {
-            console.log(result);
-            //$http.post('/api/v1/repositories', { name: '' });
+            console.log('Creating Repository: ' + result);
+            $http.post('/api/v1/repositories', { name: result });
         });
         createModal();
     };
@@ -23,14 +23,9 @@ angular.module('scmeanApp')
             // when the response is available
             for (var d = 0; d < data.length; ++d) {
                 $scope.repositories.push({
-                    Name: data[d]._id,
-                    Owner: {
-                        Name: 'Ted'
-                    },
-                    Description: 'This is a test repository',
+                    Name: data[d].name,
                     Url: {
-                        Clone: 'git://git.git.git',
-                        Display: '/repositories/' + data[d]._id
+                        Clone: data[d].url
                     }
                 });
             }
@@ -39,6 +34,6 @@ angular.module('scmeanApp')
             // called asynchronously if an error occurs
             // or server returns response with an error status.
             console.log('Error retrieving repositories.');
-            console.log(data);
+            console.error(data);
         });
   });

@@ -5,17 +5,13 @@
 		<tr>
 			<th></th>
 			<th>Name</th>
-			<th>Owner</th>
-			<th>Description</th>
 			<th>URL</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr class="row" ng-repeat="repository in repositories" ng-click="selectedRepository = repository">
 			<td><span ng-bind="repository.Name"></span></td>
-			<td><span ng-bind="repository.Owner.Name"></span></td>
-			<td><span ng-bind="repository.Description"></span></td>
-			<td><a href="{{ repository.Url.Display }}" ng-bind="repository.Url.Clone"></a></td>
+			<td><a href="{{ repository.Url.Clone }}" ng-bind="repository.Url.Clone"></a></td>
 		</tr>
 	</tbody>
 	<tfoot>

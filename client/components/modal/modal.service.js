@@ -79,34 +79,33 @@ angular.module('scmeanApp')
           callback = callback || angular.noop;
 
           return function() {
-            var args = Array.prototype.slice.call(arguments),
-                createModal;
+            var createModal;
+            var modal = {
+              dismissable: true,
+              title: 'New Repository',
+              text: 'What do you want to name your new repository?',
+              input: { value: 'test' },
+              buttons: [{
+                classes: 'btn-success',
+                text: 'Create',
+                click: function() {
+                  createModal.close(modal.input.value);
+                }
+              },{
+                classes: 'btn-default',
+                text: 'Cancel',
+                click: function(e) {
+                  createModal.dismiss(e);
+                }
+              }]
+            };
+
             createModal = openModal({
-              modal: {
-                dismissable: true,
-                title: 'New Repository',
-                text: 'What do you want to name your new repository?',
-                input: {
-                  value: ''
-                },
-                buttons: [{
-                  classes: 'btn-success',
-                  text: 'Create',
-                  click: function(e) {
-                    createModal.close(e, this.input);
-                  }
-                },{
-                  classes: 'btn-default',
-                  text: 'Cancel',
-                  click: function(e) {
-                    createModal.dismiss(e);
-                  }
-                }]
-              }
+              modal: modal
             }, 'modal-success');
 
-            createModal.result.then(function(event) {
-              callback.apply(event, args);
+            createModal.result.then(function(inputValue) {
+              callback.apply(null, [inputValue]);
             });
           };
         }
