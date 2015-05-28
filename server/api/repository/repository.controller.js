@@ -25,7 +25,6 @@ exports.index = function(req, res) {
 // Creates a new repository
 exports.create = function(req, res) {
   var repoDir = path.join(config.git.directory, req.body.name);
-  console.log(repoDir);
   fs.ensureDirSync(repoDir);
   fs.chownSync(repoDir, config.git.uid, config.git.gid)
   var command = 'su -c "git init --bare --share" git';
