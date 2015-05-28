@@ -9,9 +9,12 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr class="row" ng-repeat="repository in repositories" ng-click="selectedRepository = repository">
+		<tr class="row" ng-repeat="repository in repositories">
 			<td><span ng-bind="repository.Name"></span></td>
 			<td><a href="{{ repository.Url.Clone }}" ng-bind="repository.Url.Clone"></a></td>
+			<td>
+				<button class="btn btn-danger" ng-click="deleteRepo($index)">Delete</button>
+			</td>
 		</tr>
 	</tbody>
 	<tfoot>
@@ -19,11 +22,6 @@
 			<td></td>
 			<td>
 				<button class="btn btn-success" ng-click="createRepoDialog()">New</button>
-			</td>
-			<td></td>
-			<td></td>
-			<td>
-				<button class="btn btn-danger" ng-click="deleteRepo()">Delete</button>
 			</td>
 		</tr>
 	</tfoot>

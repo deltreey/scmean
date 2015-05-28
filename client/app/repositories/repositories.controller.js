@@ -3,37 +3,41 @@
 angular.module('scmeanApp')
   .controller('RepositoriesCtrl', function ($scope, $http, Modal) {
     $scope.repositories = [];
-    $scope.selectedRepository = 'None';
+
+    function UpdateRepositoryList() {
+        $http.get('/api/v1/repositories')
+            .success(function(data) {
+                $scope.repositories = [];
+                for (var d = 0; d < data.length; ++d) {
+                    $scope.repositories.push({
+                        Name: data[d].name,
+                        Url: {
+                            Clone: data[d].url
+                        }
+                    });
+                }
+            })
+            .error(function(data) {
+                console.log('Error retrieving repositories.');
+                console.error(data);
+            });
+    }
+
     $scope.createRepoDialog = function() {
         var createModal = Modal.input.createRepository(function(result) {
             console.log('Creating Repository: ' + result);
             $http.post('/api/v1/repositories', { name: result });
+            new UpdateRepositoryList();
         });
         createModal();
     };
-    $scope.deleteRepo = function() {
+    $scope.deleteRepo = function(index) {
         var deleteModal = Modal.confirm.delete(function () {
-            $http.delete('/api/v1/repositories/' + $scope.selectedRepository);
+            $http.delete('/api/v1/repositories/' + $scope.repositories[index].Name);
+            new UpdateRepositoryList();
         });
-        deleteModal($scope.selectedRepository);
+        deleteModal($scope.repositories[index].Name);
     };
-    $http.get('/api/v1/repositories')
-        .success(function(data) {
-            // this callback will be called asynchronously
-            // when the response is available
-            for (var d = 0; d < data.length; ++d) {
-                $scope.repositories.push({
-                    Name: data[d].name,
-                    Url: {
-                        Clone: data[d].url
-                    }
-                });
-            }
-        })
-        .error(function(data) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            console.log('Error retrieving repositories.');
-            console.error(data);
-        });
+
+    new UpdateRepositoryList();
   });
