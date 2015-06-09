@@ -2,6 +2,7 @@
 Source Control Manager and CI Server on the MEAN stack
 
 [![travis ci](https://travis-ci.org/deltreey/scmean.svg?branch=master)][1]
+[![bitHound Score](https://www.bithound.io/github/deltreey/scmean/badges/score.svg?)][2]
 
 ## Installing SCMEAN
 
@@ -17,3 +18,4 @@ npm start --production
 ```
 
 [1]: https://travis-ci.org/deltreey/scmean
+[2]: https://www.bithound.io/github/deltreey/scmean
