@@ -1,4 +1,6 @@
 # scmean
+
+[![Join the chat at https://gitter.im/deltreey/scmean](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/deltreey/scmean?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Source Control Manager and CI Server on the MEAN stack
 
 [![travis ci](https://travis-ci.org/deltreey/scmean.svg?branch=master)][1]
