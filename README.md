@@ -1,11 +1,11 @@
 # scmean
 
-[![Join the chat at https://gitter.im/deltreey/scmean](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/deltreey/scmean?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Source Control Manager and CI Server on the MEAN stack
 
 [![travis ci](https://travis-ci.org/deltreey/scmean.svg?branch=master)][1]
 [![Code Climate](https://codeclimate.com/github/deltreey/scmean/badges/gpa.svg)][3]
 [![bitHound Score](https://www.bithound.io/github/deltreey/scmean/badges/score.svg?)][2]
+[![Join the chat at https://gitter.im/deltreey/scmean](https://badges.gitter.im/Join%20Chat.svg)][4]
 
 ## Installing SCMEAN
 
@@ -23,3 +23,4 @@ npm start --production
 [1]: https://travis-ci.org/deltreey/scmean
 [2]: https://www.bithound.io/github/deltreey/scmean
 [3]: https://codeclimate.com/github/deltreey/scmean
+[4]: https://gitter.im/deltreey/scmean?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
