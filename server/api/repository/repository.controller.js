@@ -15,7 +15,7 @@ exports.index = function(req, res) {
     .then(function (files) {
       var result = [];
       for (var f = 0; f < files.length; ++f) {
-        result.push({ name: files[f], url: 'git://honeycomb.hive/' + files[f], location: '/git/' + files[f] });
+        result.push({ name: files[f], url: 'git://' + config.url + '/' + files[f], location: '/git/' + files[f] });
       }
 
       return res.json(result);

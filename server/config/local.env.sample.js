@@ -9,16 +9,12 @@ module.exports = {
   DOMAIN:           'http://localhost:9000',
   SESSION_SECRET:   'scmean-secret',
 
-  FACEBOOK_ID:      'app-id',
-  FACEBOOK_SECRET:  'secret',
-
-  TWITTER_ID:       'app-id',
-  TWITTER_SECRET:   'secret',
-
   GOOGLE_ID:        'app-id',
   GOOGLE_SECRET:    'secret',
 
-  BASE_GIT_DIR: '/home/deltreey/git/',
+  BASE_GIT_DIR: '/git/',
+
+  SCMEAN_URL: 'example.com',
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
 };

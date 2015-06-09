@@ -32,6 +32,8 @@ var all = {
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
 
+  url: process.env.SCMEAN_URL,
+
   // MongoDB connection options
   mongo: {
     options: {
@@ -45,18 +47,6 @@ var all = {
     directory: process.env.BASE_GIT_DIR || '/git',
     uid: 1000,
     gid: 1000
-  },
-
-  facebook: {
-    clientID:     process.env.FACEBOOK_ID || 'id',
-    clientSecret: process.env.FACEBOOK_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/facebook/callback'
-  },
-
-  twitter: {
-    clientID:     process.env.TWITTER_ID || 'id',
-    clientSecret: process.env.TWITTER_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/twitter/callback'
   },
 
   google: {
