@@ -2,7 +2,7 @@
 
 angular.module('scmeanApp')
   .factory('User', function ($resource) {
-    return $resource('/api/v1/users/:id/:controller', {
+    return $resource('/api/v1/users/:id/:controller/:details', {
       id: '@_id'
     },
     {
@@ -17,6 +17,13 @@ angular.module('scmeanApp')
         params: {
           id:'me'
         }
+      },
+      upgrade: {
+        method: 'GET',
+        params: {
+          controller: 'addrole',
+          details: 'dev'
+        }
       }
-	  });
+    });
   });

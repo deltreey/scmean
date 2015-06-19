@@ -127,6 +127,10 @@ angular.module('scmeanApp')
         }
       },
 
+      isDev: function() {
+        return currentUser.role === 'dev' || currentUser.role === 'admin';
+      },
+
       /**
        * Check if a user is an admin
        *

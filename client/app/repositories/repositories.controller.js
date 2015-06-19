@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('scmeanApp')
-  .controller('RepositoriesCtrl', function ($scope, $http, Modal) {
+  .controller('RepositoriesCtrl', function ($scope, $http, Modal, Auth) {
     $scope.repositories = [];
+    $scope.isAdmin = Auth.isAdmin();
+    $scope.isDev = Auth.isDev();
 
     function UpdateRepositoryList() {
       $http.get('/api/v1/repositories')

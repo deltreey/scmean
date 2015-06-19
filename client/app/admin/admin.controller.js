@@ -14,4 +14,8 @@ angular.module('scmeanApp')
         }
       });
     };
+
+    $scope.upgrade = function(user) {
+      User.upgrade({ id: user._id });
+    };
   });

@@ -6,7 +6,10 @@
     <li class="list-group-item" ng-repeat="user in users">
         <strong>{{user.name}}</strong><br>
         <span class="text-muted">{{user.email}}</span>
-        <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+        <span class="pull-right">
+        	<a ng-click="upgrade(user)" class="clickable">+Dev</a> | 
+        	<a ng-click="delete(user)" class="trash clickable"><span class="glyphicon glyphicon-trash"></span></a>
+				</span>
     </li>
   </ul>
 </div>
