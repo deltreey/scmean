@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
 
 var BuildSchema = new Schema({
   name: String,
-  info: String,
+  command: String,
+  workingdirectory: String,
   active: Boolean
 });
 

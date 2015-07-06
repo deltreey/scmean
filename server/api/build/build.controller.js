@@ -1,7 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
+var _ = require('lodash'),
+    exec = require('child_process').exec;
 var Build = require('./build.model');
+
 
 // Get list of builds
 exports.index = function(req, res) {
@@ -54,6 +56,23 @@ exports.destroy = function(req, res) {
   });
 };
 
+exports.execute = function(req, res) {
+  Build.findById(req.params.id, function (err, build) {
+    if (err) { return handleError(res, err); }
+    if (!build) { return res.send(404); }
+    exec(build.command, {
+      cwd: build.workingdirectory || './'
+    }, function(error, stdout, stderr) {
+      if (error) { return handleError(error); }
+      return res.json(201, {
+        err: stderr,
+        out: stdout
+      });
+    });
+  });
+};
+
 function handleError(res, err) {
+  console.error(err);
   return res.send(500, err);
 }
