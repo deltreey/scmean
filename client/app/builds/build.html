@@ -1,0 +1,20 @@
+<div class="container">
+	<input type="text" ng-model="build.name" placeholder="Name" class="form-control" />
+	<input type="text" ng-model="build.workingdirectory" placeholder="/Working/Directory" class="form-control" />
+	<textarea ng-model="build.command" class="form-control" cols="30" rows="10"></textarea>
+	<label for="active" >Active?</label>
+	<input type="checkbox" name="active" ng-model="build.active" />
+	<div class="pull-right">
+		<button class="btn btn-success" ng-click="UpdateBuild()" type="button">Save</button>
+		<button class="btn btn-warning" ng-click="TestBuild()" type="button">Test</button>
+	</div>
+</div>
+
+<div ng-if="output || error" class="well container">
+	<h3 ng-if="output">StdOut</h3>
+	<hr class="code" ng-if="output" />
+	<markdown bind-from='output'></markdown>
+	<h3 ng-if="error">StdErr</h3>
+	<hr class="code" ng-if="error" />
+	<markdown bind-from='error' class="text-danger"></markdown>
+</div>

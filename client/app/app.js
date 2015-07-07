@@ -5,6 +5,7 @@ angular.module('scmeanApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'codemwnci.markdown-edit-preview',
   'ui.bootstrap'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {

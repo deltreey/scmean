@@ -13,6 +13,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/markdown-editpreview-ng/lib/codemwnci/bootstrap-markdown.min.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -55,6 +56,10 @@
       <script src="bower_components/angular-route/angular-route.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/markdown-editpreview-ng/lib/codemwnci/bootstrap-markdown.js"></script>
+      <script src="bower_components/markdown-editpreview-ng/lib/codemwnci/markdown-editpreview-ng.js"></script>
+      <script src="bower_components/markdown-editpreview-ng/lib/codemwnci/Markdown.Converter.js"></script>
+      <script src="bower_components/markdown-editpreview-ng/lib/codemwnci/Markdown.Sanitizer.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
 
@@ -67,6 +72,7 @@
           <script src="app/account/signup/signup.controller.js"></script>
           <script src="app/admin/admin.controller.js"></script>
           <script src="app/admin/admin.js"></script>
+          <script src="app/builds/build.controller.js"></script>
           <script src="app/builds/builds.controller.js"></script>
           <script src="app/builds/builds.js"></script>
           <script src="app/projects/projects.controller.js"></script>

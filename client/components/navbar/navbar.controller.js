@@ -5,6 +5,9 @@ angular.module('scmeanApp')
     $scope.menu = [{
       'title': 'Repositories',
       'link': '/repositories'
+    },{
+      'title': 'Builds',
+      'link': '/builds'
     }];
 
     $scope.isCollapsed = true;

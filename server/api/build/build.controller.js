@@ -1,7 +1,9 @@
 'use strict';
 
 var _ = require('lodash'),
-    exec = require('child_process').exec;
+    exec = require('child_process').exec,
+    Convert = require('ansi-to-html'),
+    convert = new Convert();
 var Build = require('./build.model');
 
 
@@ -65,8 +67,8 @@ exports.execute = function(req, res) {
     }, function(error, stdout, stderr) {
       if (error) { return handleError(error); }
       return res.json(201, {
-        err: stderr,
-        out: stdout
+        err: convert.toHtml(stderr),
+        out: convert.toHtml(stdout)
       });
     });
   });

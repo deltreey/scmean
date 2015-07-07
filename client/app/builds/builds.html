@@ -1,3 +1,33 @@
-<div class="col-md-12">
-This is the builds view.
-</div>
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Name</th>
+			<th>Active?</th>
+			<th>Update</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="row" ng-repeat="build in builds">
+			<td><span ng-bind="build.Name"></span></td>
+			<td>
+				<span ng-if="!build.Active" class="text-danger">Inactive</span>
+				<span ng-if="build.Active" class="text-success">Active</span>
+			</td>
+			<td>
+				<a class="btn btn-default" href="/builds/{{ build._id }}">Edit</a>
+			</td>
+			<td>
+				<button class="btn btn-danger" ng-click="deleteBuild(build._id)">Delete</button>
+			</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td></td>
+			<td>
+				<button class="btn btn-success" ng-click="createBuild()">New</button>
+			</td>
+		</tr>
+	</tfoot>
+</table>
