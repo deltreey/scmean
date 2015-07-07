@@ -18,6 +18,8 @@ angular.module('scmeanApp')
               }
             });
           }
+          $scope.isAdmin = Auth.isAdmin();
+          $scope.isDev = Auth.isDev();
         })
         .error(function (data) {
           console.log('Error retrieving repositories.');
