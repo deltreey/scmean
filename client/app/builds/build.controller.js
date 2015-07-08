@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('scmeanApp')
-  .controller('BuildCtrl', function ($scope, $http, $routeParams) {
+  .controller('BuildCtrl', function ($scope, $http, $routeParams, Auth) {
   	$scope.build = {};
+    $scope.isAdmin = Auth.isAdmin;
+    $scope.isDev = Auth.isDev;
   	$scope.output = '';
   	$scope.error = '';
 

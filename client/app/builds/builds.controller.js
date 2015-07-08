@@ -1,15 +1,16 @@
 'use strict';
 
 angular.module('scmeanApp')
-  .controller('BuildsCtrl', function ($scope, $http, $location) {
+  .controller('BuildsCtrl', function ($scope, $http, $location, Auth) {
     $scope.builds = [];
+    $scope.isAdmin = Auth.isAdmin;
+    $scope.isDev = Auth.isDev;
 
     function UpdateBuildList() {
       $http.get('/api/v1/builds')
         .success(function (data) {
           $scope.builds = [];
           for (var d = 0; d < data.length; ++d) {
-          	console.log(data[d]);
             $scope.builds.push({
               Name: data[d].name,
               Active: data[d].active,

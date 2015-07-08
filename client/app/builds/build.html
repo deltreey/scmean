@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-if="isAdmin()">
 	<input type="text" ng-model="build.name" placeholder="Name" class="form-control" />
 	<input type="text" ng-model="build.workingdirectory" placeholder="/Working/Directory" class="form-control" />
 	<textarea ng-model="build.command" class="form-control" cols="30" rows="10"></textarea>
@@ -6,6 +6,16 @@
 	<input type="checkbox" name="active" ng-model="build.active" />
 	<div class="pull-right">
 		<button class="btn btn-success" ng-click="UpdateBuild()" type="button">Save</button>
+		<button class="btn btn-warning" ng-click="TestBuild()" type="button">Test</button>
+	</div>
+</div>
+<div class="container" ng-if="!isAdmin()">
+	<span ng-bind="build.name" class="form-control"></span>
+	<span ng-bind="build.workingdirectory" class="form-control"></span>
+	<div style="height: 200px;" ng-bind="build.command" class="form-control"></div>
+	<label for="active" >Active?</label>
+	<input disabled="disabled" type="checkbox" name="active" ng-model="build.active" />
+	<div class="pull-right">
 		<button class="btn btn-warning" ng-click="TestBuild()" type="button">Test</button>
 	</div>
 </div>

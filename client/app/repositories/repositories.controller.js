@@ -3,8 +3,8 @@
 angular.module('scmeanApp')
   .controller('RepositoriesCtrl', function ($scope, $http, Modal, Auth) {
     $scope.repositories = [];
-    $scope.isAdmin = Auth.isAdmin();
-    $scope.isDev = Auth.isDev();
+    $scope.isAdmin = Auth.isAdmin;
+    $scope.isDev = Auth.isDev;
 
     function UpdateRepositoryList() {
       $http.get('/api/v1/repositories')
@@ -18,8 +18,6 @@ angular.module('scmeanApp')
               }
             });
           }
-          $scope.isAdmin = Auth.isAdmin();
-          $scope.isDev = Auth.isDev();
         })
         .error(function (data) {
           console.log('Error retrieving repositories.');
@@ -37,6 +35,7 @@ angular.module('scmeanApp')
       });
       createModal();
     };
+    
     $scope.deleteRepo = function(index) {
       var deleteModal = Modal.confirm.delete(function () {
         $http.delete('/api/v1/repositories/' + $scope.repositories[index].Name)
