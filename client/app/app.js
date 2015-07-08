@@ -8,6 +8,10 @@ angular.module('scmeanApp', [
   'codemwnci.markdown-edit-preview',
   'ui.bootstrap'
 ])
+  .constant('_', window._)
+  .run(function ($rootScope) {
+     $rootScope._ = window._;
+  })
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .otherwise({
