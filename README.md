@@ -3,6 +3,7 @@
 Source Control Manager and CI Server on the MEAN stack
 
 [![travis ci](https://travis-ci.org/deltreey/scmean.svg?branch=master)][1]
+[![Codacy Badge](https://www.codacy.com/project/badge/b71b5fa55427439a81927960541609a7)][5]
 [![Code Climate](https://codeclimate.com/github/deltreey/scmean/badges/gpa.svg)][3]
 [![bitHound Score](https://www.bithound.io/github/deltreey/scmean/badges/score.svg?)][2]
 [![Join the chat at https://gitter.im/deltreey/scmean](https://badges.gitter.im/Join%20Chat.svg)][4]
@@ -24,3 +25,4 @@ npm start --production
 [2]: https://www.bithound.io/github/deltreey/scmean
 [3]: https://codeclimate.com/github/deltreey/scmean
 [4]: https://gitter.im/deltreey/scmean?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[5]: https://www.codacy.com/app/suicidolt/scmean
