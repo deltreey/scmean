@@ -3,11 +3,13 @@
 angular.module('scmeanApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Repositories',
-      'link': '/repositories'
+      title: 'Repositories',
+      link: '/repositories',
+      ngif: function() { return true; }
     },{
-      'title': 'Builds',
-      'link': '/builds'
+      title: 'Builds',
+      link: '/builds',
+      ngif: Auth.isDev
     }];
 
     $scope.isCollapsed = true;
