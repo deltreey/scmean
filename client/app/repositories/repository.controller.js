@@ -1,58 +1,59 @@
 'use strict';
 
 angular.module('scmeanApp')
-  .controller('RepositoryCtrl', function ($scope, $http, $routeParams) {
-    $scope.repository = {};
-     $http.get('/api/v1/repositories/' + $routeParams.name)
+  .controller('RepositoryCtrl', function ($scope, $http, $routeParams, Modal) {
+    $scope.repository = $routeParams.name;
+    $scope.hooks = [];
+
+    function UpdateHookList() {
+      $http.get('/api/v1/repositories/' + $routeParams.name + '/hooks')
         .success(function(data) {
-            // this callback will be called asynchronously
-            // when the response is available
-            $scope.repository = {
-                Name: data._id,
-                Owner: {
-                    Name: 'Ted'
-                },
-                Description: 'This is a test repository',
-                Url: {
-                    Clone: 'git://git.git.git',
-                    Display: '/repositories/Test'
-                },
-                Branches: [
-                    'master',
-                    'development'
-                ],
-                selectedBranch: 'master',
-                commits: [{
-                    id: '123abc',
-                    message: 'I checked in stuff'
-                },{
-                    id: '124abc',
-                    message: 'I checked in stuff'
-                },{
-                    id: '125abc',
-                    message: 'I checked in stuff'
-                },{
-                    id: '126abc',
-                    message: 'I checked in stuff'
-                },{
-                    id: '127abc',
-                    message: 'I checked in stuff'
-                },{
-                    id: '128abc',
-                    message: 'I checked in stuff'
-                },{
-                    id: '129abc',
-                    message: 'I checked in stuff'
-                },{
-                    id: '130abc',
-                    message: 'I checked in stuff'
-                }]
-            };
+          $scope.hooks = data;
         })
         .error(function(data) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            console.log('Error retrieving repositories.');
-            console.log(data);
+          console.log('Error retrieving repositories.');
+          console.log(data);
         });
+    }
+
+    $scope.createHookDialog = function() {
+      var createModal = Modal.input.createHook(function(result, build, selectedBranch) {
+        $scope.createHook(result, build, selectedBranch);
+      });
+      createModal();
+    };
+
+    $scope.createHook = function(name, build, branch) {
+      $http.post(
+        '/api/v1/repositories/' + $routeParams.name + '/hooks',
+        { name: name, build: build, branch: branch }
+        )
+        .success(function () {
+          new UpdateHookList();
+        })
+        .error(function (data) {
+          console.log('Error creating hook.');
+          console.error(data);
+        });
+    };
+
+    $scope.updateHook = function(hook) {
+      $http.put('/api/v1/repositories/' + $routeParams.name + '/hooks/' + hook.name, hook)
+        .success(function () {
+          console.log('Saved!');
+        })
+        .error(function (data) {
+          console.log('Error saving hook');
+          console.error(data);
+        });
+    };
+
+    $scope.deleteHook = function (id) {
+      $http.delete('/api/v1/repositories/' + $routeParams.name + '/hooks/' + id)
+        .success(function () {
+          new UpdateHookList();
+        });
+    };
+
+    new UpdateHookList();
   });

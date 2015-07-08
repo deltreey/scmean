@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('scmeanApp')
-  .factory('Modal', function ($rootScope, $modal) {
+  .factory('Modal', function ($rootScope, $modal, $sce, Build) {
+    var _ = $rootScope._;
     /**
      * Opens a modal
      * @param  {Object} scope      - an object to be merged with modal's scope
@@ -106,6 +107,59 @@ angular.module('scmeanApp')
 
             createModal.result.then(function(inputValue) {
               callback.apply(null, [inputValue]);
+            });
+          };
+        },
+        createHook: function (callback) {
+          callback = callback || angular.noop;
+
+          return function() {
+            var createModal;
+
+            Build.query(function (builds) {
+              var modal = {
+                dismissable: true,
+                title: 'New Hook',
+                selectables: [{
+                  name: 'Branch: ',
+                  options: ['master'],
+                  value: 'master'
+                },{
+                  name: 'Build: ',
+                  options: _.pluck(builds, 'name'),
+                  value: builds[0].name
+                },{
+                  name: 'HookType: ',
+                  options: ['update'],
+                  value: 'update'
+                }],
+                buttons: [{
+                  classes: 'btn-success',
+                  text: 'Create',
+                  click: function() {
+                    var build = _.find(builds, { name: modal.selectables[1].value });
+                    createModal.close([
+                      modal.selectables[2].value,
+                      build._id,
+                      _.pluck(modal.selectables, 'value')
+                    ]);
+                  }
+                },{
+                  classes: 'btn-default',
+                  text: 'Cancel',
+                  click: function(e) {
+                    createModal.dismiss(e);
+                  }
+                }]
+              };
+
+              createModal = openModal({
+                modal: modal
+              }, 'modal-success');
+
+              createModal.result.then(function(results) {
+                callback.apply(null, [results[0], results[1], results[2][0]]);
+              });
             });
           };
         }

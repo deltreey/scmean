@@ -1,18 +1,24 @@
-<div class="table table-striped">
+<h3 style="text-align: center;"><u>{{ repository }} Hooks</u></h3>
+<div style="text-align: center;">
+	<button class="btn btn-success" ng-click="createHookDialog()">New Hook</button>
+</div>
+<table class="table table-striped table-hover">
 	<thead>
-		<tr class="row">
-			<th><span ng-bind="repository.Name"></span></th>
-			<th><span ng-bind="repository.Owner.Name"></span></th>
-			<th><span ng-bind="repository.Description"></span></th>
-			<th>
-				<select ng-options="branch in repository.Branches" class="form-control"></select>
-			</th>
+		<tr>
+			<th>Name</th>
+			<th>Update</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr class="row" ng-repeat="commit in repository.commits">
-			<td><span ng-bind="commit.id"></span></td>
-			<td><span ng-bind="commit.message"></span></td>
+		<tr ng-repeat="hook in hooks">
+			<td><span ng-bind="hook.name"></span></td>
+			<td>
+				<a class="btn btn-default" href="#">Edit</a>
+			</td>
+			<td>
+				<button class="btn btn-danger" ng-click="deleteHook(hook.name)">Delete</button>
+			</td>
 		</tr>
 	</tbody>
-</div>
+</table>
